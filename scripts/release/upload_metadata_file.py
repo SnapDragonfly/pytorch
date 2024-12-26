@@ -3,6 +3,7 @@ from functools import cache
 import os
 
 from pathlib import Path
+import subprocess
 import zipfile
 import shutil
 
@@ -26,7 +27,11 @@ def parse_args():
 
 @cache
 def get_s3_resource():
-    import boto3
+    try:
+        import boto3
+    except ImportError:
+        subprocess.run(["pip", "install", "boto3"])
+        import boto3
 
     return boto3.resource("s3")
 
