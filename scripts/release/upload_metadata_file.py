@@ -48,7 +48,8 @@ def extract_metadata(file):
         for filename in zip_ref.infolist():
             if filename.filename.endswith(".dist-info/METADATA"):
                 filename.filename = "METADATA"
-                os.remove(f"{tmp}/METADATA", ignore_errors=True)
+                if os.path.exists(f"{tmp}/METADATA"):
+                    os.remove(f"{tmp}/METADATA")
                 zip_ref.extract(filename, tmp)
         return tmp
 
