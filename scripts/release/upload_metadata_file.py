@@ -22,7 +22,10 @@ def parse_args():
         required=True,
         help="S3 key to upload metadata file to",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.bucket.startswith("s3://"):
+        args.bucket = args.bucket[5:]
+    return args
 
 
 @cache
