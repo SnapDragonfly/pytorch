@@ -47,6 +47,8 @@ def get_torch_version(sha: Optional[str] = None) -> str:
         assert os.getenv("PYTORCH_BUILD_NUMBER") is not None
         build_number = int(os.getenv("PYTORCH_BUILD_NUMBER", ""))
         version = os.getenv("PYTORCH_BUILD_VERSION", "")
+        l4t_ver = os.getenv("L4T_BUILD_VERSION", "")
+        version += "+l4t" + l4t_ver
         if build_number > 1:
             version += ".post" + str(build_number)
     elif sha != UNKNOWN:
